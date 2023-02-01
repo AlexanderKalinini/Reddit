@@ -14,15 +14,15 @@ import { Controls } from "./Controls";
 //   { value: "some other" },
 // ].map((obj) => generateID(obj));
 
-export function Card() {
+export function Card({index}:{index:number}) {
   // const [list, setList] = React.useState(LIST);
   // const handleItemClick = (id: string) => {
   //   setList(list.filter((item) => item.id != id));
   // };
   return (
     <li className={styles.card}>
-      <TextContent />
-      <Preview />
+      <TextContent index={index} />
+      <Preview index={index}/>
       <Menu />
       <Controls />
     </li>

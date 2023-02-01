@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { userPostContext } from "../../../context/userPostContext";
+import { Post } from "../../../Post";
 import styles from "./textContent.css";
+import { Title } from "./Title";
 
-export function TextContent() {
+export function TextContent({ index }: { index: number }) {
   return (
     <div className={styles.textContent}>
       <div className={styles.metaData}>
@@ -20,14 +23,7 @@ export function TextContent() {
           назад
         </span>
       </div>
-      <h2 className={styles.title}>
-        <a href="#post-url" className={styles.postLink}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia
-          cupiditate, ducimus corrupti totam doloremque quam suscipit in cum
-          sunt enim fugit minus consequuntur corporis vero eveniet aut iste id
-          saepe?
-        </a>
-      </h2>
+      <Title index={index}/>
     </div>
   );
 }

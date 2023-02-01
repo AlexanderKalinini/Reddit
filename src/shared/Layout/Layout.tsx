@@ -6,11 +6,10 @@ import styles from "./layout.css";
 interface ILayoutProps {
   children?: React.ReactNode;
 }
+
 export function Layout({ children }: ILayoutProps) {
   return (
     <div className={styles.layout}>
-      <Header />
-      <Content>content</Content>
       {children}
     </div>
   );

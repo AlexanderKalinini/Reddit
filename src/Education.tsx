@@ -2,12 +2,12 @@ import React from "react";
 
 const log = console.log;
 export function MyHooks({ title }: { title: string }) {
-  // без второго аргумента отработает на монтирование и размонтирование
+  // без второго аргумента отработает один раз после монтирования
   React.useEffect(() => {
     log("DidMount");
     log("WillUpdate");
   });
-  //с пустым вторым аргументом будет вызываться useEffect при каждом обновлении и при return возвращает функцию при размонтировании
+  //с пустым вторым аргументом будет вызываться useEffect при каждом обновлении пропов и при return возвращает функцию при размонтировании
   React.useEffect(() => {
     log("DidMount");
     return () => log("WillUnmount");
@@ -20,7 +20,7 @@ export function MyHooks({ title }: { title: string }) {
 }
 
 function pipe<U>(fn: Function[]) {
-  return function(initialValue: any):U {
+  return function (initialValue: any): U {
     return fn.reduce((previosValue, fn) => fn(previosValue), initialValue);
   };
 }

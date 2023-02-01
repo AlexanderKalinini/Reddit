@@ -1,0 +1,17 @@
+.comment_button {
+	position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.comment_button_text {
+  margin-left: 6px;
+}
+
+.comment_form {
+	width: 100%;
+	position: absolute;
+	top: 50px;
+	left: 0;
+
+}

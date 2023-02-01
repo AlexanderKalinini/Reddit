@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import { MenuIcon } from "../../../icons";
 import { Dropdown } from "../../Dropdown";
 import styles from "./menu.css";
 import { MenuItemList } from "./MenuItemList";
 
 export function Menu() {
+  
   return (
-    <div className={styles.menu}>
-      <Dropdown
+    <div className={styles.menu}> 
+      <Dropdown 
         button={
           <button className={styles.menuButton}>
             <MenuIcon />
