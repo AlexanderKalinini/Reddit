@@ -4,27 +4,18 @@ import { Menu } from "./Menu";
 import { Preview } from "./Preview";
 import { TextContent } from "./TextContent";
 import { Controls } from "./Controls";
+import { indexContext } from "../../context/indexContext";
 
-
-
-
-// const LIST = [
-//   { value: "some" },
-//   { value: "other some" },
-//   { value: "some other" },
-// ].map((obj) => generateID(obj));
-
-export function Card({index}:{index:number}) {
-  // const [list, setList] = React.useState(LIST);
-  // const handleItemClick = (id: string) => {
-  //   setList(list.filter((item) => item.id != id));
-  // };
+export function Card({ index }: { index: number }) {
   return (
     <li className={styles.card}>
-      <TextContent index={index} />
-      <Preview index={index}/>
-      <Menu />
-      <Controls />
+      {" "}
+      <indexContext.Provider value={index}>
+        <TextContent />
+        <Preview />
+        <Menu />
+        <Controls />
+      </indexContext.Provider>
     </li>
   );
 }

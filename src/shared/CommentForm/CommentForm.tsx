@@ -1,16 +1,14 @@
 import React, { ChangeEvent, FormEvent } from "react";
 import styles from "./commentform.css";
-import { useContext} from "react";
+import { useContext } from "react";
 import { userContext } from "../context/userContext";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, updateComment } from '../../../redux-store';
+import { RootState } from "../../../redux-store";
 
 export function CommentForm() {
   const value1 = useSelector<RootState, string>((state) => state.commentText);
   const dispatch = useDispatch();
   const userData = useContext(userContext);
-
-
 
   function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
     dispatch(updateComment(event.target.value));
@@ -34,4 +32,7 @@ export function CommentForm() {
       </button>
     </form>
   );
+}
+function updateComment(value: string): any {
+  throw new Error("Function not implemented.");
 }

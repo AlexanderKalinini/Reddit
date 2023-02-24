@@ -3,12 +3,22 @@ import ReactDOM from "react-dom/server";
 import { indexTemplate } from "./indexTemplate";
 import { App } from "../App";
 import axios from "axios";
+import cors from 'cors';
+
 const app = express();
 
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+  optionSuccessStatus: 200
+}
+
+app.use(cors(corsOptions))
 app.use("/static", express.static("./dist/client"));
 app.get("/", (req, res) => {
   res.send(indexTemplate(ReactDOM.renderToString(App())));
 });
+
 
 app.get("/auth", (req, res) => {
   axios

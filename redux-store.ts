@@ -1,29 +1,39 @@
-import { ActionCreator, AnyAction, Reducer } from "redux";
+import { meReduser, MeState } from "./src/store/requestUserData/reducer";
+import {
+  ME_REQUEST,
+  ME_REQUEST_SUCCESS,
+  ME_REQUEST_ERROR,
+  MeRequestAction,
+  MeRequestSuccessAction,
+  MeRequestErrorAction,
+} from "./src/store/requestUserData/actions";
+import { Reducer } from "redux";
+import { TTokenAction, SET_TOKEN } from "./src/store/saveToken/actions";
+import {
+  UpdateCommentAction,
+  UPDATE_COMMENT,
+} from "./src/store/updateComment/actions";
 
 export type RootState = {
   commentText: string;
   token: string;
+  me: MeState;
 };
 
 const initialState: RootState = {
   commentText: "",
   token: "",
+  me: { loading: false, error: "", data: { name: "", iconImg: "" } },
 };
 
-const UPDATE_COMMENT = "UPDATE_COMMENT";
-const SET_TOKEN = "SET_TOKEN";
+type MeActions =
+  | UpdateCommentAction
+  | MeRequestAction
+  | MeRequestSuccessAction
+  | MeRequestErrorAction
+  | TTokenAction;
 
-export const updateComment: ActionCreator<AnyAction> = (text) => ({
-  type: UPDATE_COMMENT,
-  text,
-});
-
-export const setToken: ActionCreator<AnyAction> = (token) => ({
-  type: SET_TOKEN,
-  token,
-});
-
-export const rootReducer: Reducer<RootState> = (
+export const rootReducer: Reducer<RootState, MeActions> = (
   state = initialState,
   action
 ) => {
@@ -38,6 +48,14 @@ export const rootReducer: Reducer<RootState> = (
         ...state,
         token: action.token,
       };
+    case ME_REQUEST:
+    case ME_REQUEST_SUCCESS:
+    case ME_REQUEST_ERROR:
+      return {
+        ...state,
+        me: meReduser(state.me, action),
+      };
+
     default:
       return state;
   }

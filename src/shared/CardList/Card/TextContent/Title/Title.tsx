@@ -3,9 +3,11 @@ import styles from "./title.css";
 import { useState } from "react";
 import { userPostContext } from "../../../../context/userPostContext";
 import { Post } from "../../../../Post";
+import { indexContext } from '../../../../context/indexContext';
 
-export function Title({ index }: { index: number }) {
+export function Title() {
   const data = useContext(userPostContext);
+  const index =useContext(indexContext)
   const [isOpend, setListOpened] = useState(false);
   return (
     <div>

@@ -1,5 +1,10 @@
 .comment {
   display: flex;
+ 
+}
+
+.comment:not(:last-child) {
+   margin-bottom: 38px;
 }
 
 .comment_scroll {
@@ -26,7 +31,8 @@
 .comment_block {
   display: flex;
   flex-direction: column;
-}
+ 
+} 
 
 .comment_text {
   line-height: 24px;
@@ -38,6 +44,11 @@
   max-width: 290px;
   align-items: center;
   justify-content: space-between;
+
+}
+
+.comment_buttons:not(:last-child) {
+    margin-bottom: 38px;
 }
 
 .comment_button {
@@ -48,3 +59,4 @@
 .comment_button_text {
   margin-left: 6px;
 }
+

@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, setToken } from "../../redux-store";
-import { useToken } from "./useToken";
+import { RootState } from "../../redux-store";
 
 interface IUserData {
   name?: string;
@@ -11,8 +10,8 @@ interface IUserData {
 
 export function useUserData() {
   const [data, setData] = useState<IUserData>({});
-  useToken();
   const token = useSelector<RootState, string>((state) => state.token);
+
   useEffect(() => {
     if (!token || token === "undefined") return;
     axios
@@ -21,8 +20,10 @@ export function useUserData() {
       })
       .then((resp) => {
         const userData = resp.data;
-
-        setData({ name: userData.name, iconImg: userData.icon_img });
+        setData({
+          name: userData.name,
+          iconImg: userData.icon_img.split("?")[0],
+        });
       })
       .catch(console.log);
   }, [token]);

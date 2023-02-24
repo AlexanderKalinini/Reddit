@@ -1,5 +1,5 @@
 .menu {
-  position: absolute;
+  position: relative;
   top: 17px;
   right: 15px;
   padding: 0;
@@ -19,9 +19,6 @@
 }
 
 .dropdown {
-  position: absolute;
-  right: 0;
-  top: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
   background-color: var(--white);
@@ -37,6 +34,7 @@
 @media all and (min-width: 1024px) {
   .menu {
     position: relative;
+    width: fit-content;
     order: 2;
     display: flex;
     align-items: center;
@@ -56,9 +54,8 @@
   .menuButton:hover {
     background-color: rgba(51, 51, 51, 0.1);
   }
+
   .closeButton {
-   display: none;
+    display: none;
   }
 }
-
-

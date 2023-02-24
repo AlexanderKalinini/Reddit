@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { usePostData } from "../../../../hooks/usePostData";
+import { indexContext } from "../../../context/indexContext";
+import { userPostContext } from "../../../context/userPostContext";
 import styles from "./controls.css";
 
 export function Controls() {
+  const index = useContext(indexContext);
+  const postData = useContext(userPostContext);
+
   return (
     <div className={styles.controls}>
       <div className={styles.karmaCounter}>
@@ -16,7 +22,7 @@ export function Controls() {
             <path d="M9.5 0L0 10H19L9.5 0Z" fill="#D9D9D9" />
           </svg>
         </button>
-        <span className={styles.karmaValue}>234</span>
+        <span className={styles.karmaValue}>{postData[index].score}</span>
         <button className={styles.down}>
           <svg
             width="19"
@@ -45,7 +51,9 @@ export function Controls() {
             fill="#C4C4C4"
           />
         </svg>
-        <span className={styles.commentsNumber}>12</span>
+        <span className={styles.commentsNumber}>
+          {postData[index].num_comments}
+        </span>
       </button>
       <div className={styles.actions}>
         <button className={styles.shareButton}>

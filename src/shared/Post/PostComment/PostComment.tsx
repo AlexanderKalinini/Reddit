@@ -1,14 +1,27 @@
 import { WarningIcon } from "../../icons";
 import { ShareIcon } from "../../icons/Shareicon";
 import styles from "./postcomment.css";
-
 import { Text, EColor } from "../../../../utils/react/Text/index";
-import React from "react";
+import React, { ReactNode } from "react";
 import { PostUser } from "./PostUser/index";
 import { ArrowUP, ArrowDown } from "../../icons/Arrows";
 import { AnswerButton } from "./AnswerButton/index";
 
-export function PostComment() {
+export interface IPostComment {
+  body: string;
+  author: string;
+  date: number;
+  imgUrl: string;
+  children?: ReactNode;
+}
+
+export function PostComment({
+  body,
+  author,
+  date,
+  children,
+  imgUrl,
+}: IPostComment) {
   return (
     <div className={styles.comment}>
       <div className={styles.comment_scroll}>
@@ -19,17 +32,14 @@ export function PostComment() {
         <div className={styles.comment_line}></div>
       </div>
       <div className={styles.comment_block}>
-        <PostUser />
+        <PostUser author={author} date={date} imgUrl={imgUrl} />
         <p className={styles.comment_text}>
           <Text size={14} color={EColor.black}>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Temporibus, eveniet cupiditate id enim consectetur distinctio saepe
-            dolorem qui nobis velit facilis magnam quia, vero molestias in
-            aperiam, quidem cumque atque?
+            {body}
           </Text>
         </p>
         <div className={styles.comment_buttons}>
-          <AnswerButton />
+          <AnswerButton author={author} />
           <button className={styles.comment_button}>
             <ShareIcon />
             <span className={styles.comment_button_text}>
@@ -47,6 +57,7 @@ export function PostComment() {
             </span>
           </button>
         </div>
+        <div className={styles.comment_subcomment}>{children}</div>
       </div>
     </div>
   );

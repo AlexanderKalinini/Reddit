@@ -3,8 +3,10 @@ import { usePostData } from "../../hooks/usePostData";
 
 
 interface IPostData {
+  [x: string]: any;
   title?: string;
   thumbnail?: string;
+  postId:string
 }
 
 export const userPostContext = React.createContext<IPostData[]>([]);

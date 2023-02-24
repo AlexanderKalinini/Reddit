@@ -4,8 +4,13 @@ import styles from "./answerbutton.css";
 import { EColor, Text } from "../../../../../utils/react/Text/Text";
 import { useState } from "react";
 import { CommentForm } from "../../../CommentForm/CommentForm";
+import { PostCommentForm } from "../PostCommentForm";
 
-export function AnswerButton() {
+interface IAnswerButton {
+  author: string;
+}
+
+export function AnswerButton({ author }: IAnswerButton) {
   const [isOpen, setOpenForm] = useState(false);
   return (
     <div>
@@ -21,9 +26,12 @@ export function AnswerButton() {
         </span>
       </button>
       {isOpen && (
-        <div className={styles.comment_form} >
+        <div className={styles.comment_form}>
           {" "}
-          <CommentForm />
+          <PostCommentForm
+            author={author}
+            onBlur={() => setOpenForm(!isOpen)}
+          />
         </div>
       )}
     </div>

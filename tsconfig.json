@@ -19,5 +19,5 @@
     "typeRoots": ["types"],
   },
   "include": ["./src/**/*", "src/shared/Layout"],
-  "exclude": ["/node_modules"]
+
 }
