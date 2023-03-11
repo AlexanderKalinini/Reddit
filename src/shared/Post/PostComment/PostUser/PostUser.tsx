@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import styles from "./postUser.css";
-import { userContext } from "../../../context/userContext";
 import { EColor, Text } from "../../../../../utils/react/Text/Text";
 
 export interface IPostUser {

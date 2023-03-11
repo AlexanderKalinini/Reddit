@@ -3,20 +3,23 @@ import styles from "./title.css";
 import { useState } from "react";
 import { userPostContext } from "../../../../context/userPostContext";
 import { Post } from "../../../../Post";
-import { indexContext } from '../../../../context/indexContext';
+import { postsPopularContext } from "../../../../context/postsPopularContext";
+import { Link } from "react-router-dom";
 
 export function Title() {
-  const data = useContext(userPostContext);
-  const index =useContext(indexContext)
-  const [isOpend, setListOpened] = useState(false);
+  const { title, id } = useContext(postsPopularContext);
+
   return (
     <div>
-      <h2 className={styles.title}  >
-        <a href="#post-url" className={styles.postLink} onClick={()=>{setListOpened(true)}}>
-          {data[index].title}
-        </a>
+      <h2 className={styles.title}>
+        <Link
+          to={`/posts/${id}`}
+          state={{ id: id, title: title }}
+          className={styles.postLink}
+        >
+          {title}
+        </Link>
       </h2>
-      {isOpend && (<Post onClose={()=>{setListOpened(false)}}/>)}
     </div>
   );
 }

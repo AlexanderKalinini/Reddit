@@ -63,7 +63,7 @@ export const meRequestAsync =
         dispatch(
           meRequestSuccess({
             name: userData.name,
-            iconImg: userData.icon_img.split("?")[0],
+            iconImg: userData.icon_img?.split("?")[0],
           })
         );
       })

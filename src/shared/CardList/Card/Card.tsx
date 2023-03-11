@@ -4,18 +4,19 @@ import { Menu } from "./Menu";
 import { Preview } from "./Preview";
 import { TextContent } from "./TextContent";
 import { Controls } from "./Controls";
-import { indexContext } from "../../context/indexContext";
+import { postsPopularContext } from "../../context/postsPopularContext";
+import { ICardList } from "../CardList";
 
-export function Card({ index }: { index: number }) {
+export function Card({ postData }: { postData: ICardList }) {
   return (
     <li className={styles.card}>
       {" "}
-      <indexContext.Provider value={index}>
+      <postsPopularContext.Provider value={postData}>
         <TextContent />
         <Preview />
         <Menu />
         <Controls />
-      </indexContext.Provider>
+      </postsPopularContext.Provider>
     </li>
   );
 }

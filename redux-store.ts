@@ -13,27 +13,41 @@ import {
   UpdateCommentAction,
   UPDATE_COMMENT,
 } from "./src/store/updateComment/actions";
+import {
+  POSTS_REQUEST,
+  POSTS_REQUEST_ERROR,
+  POSTS_REQUEST_SUCCESS,
+  TPostsRequestAction,
+  TPostsRequestErrorAction,
+  TPostsRequestSuccessAction,
+} from "./src/store/requestPosts/actions";
+import { postsReduser, TPostsState } from "./src/store/requestPosts/reducer";
 
 export type RootState = {
   commentText: string;
   token: string;
   me: MeState;
+  posts: TPostsState;
 };
 
 const initialState: RootState = {
   commentText: "",
   token: "",
   me: { loading: false, error: "", data: { name: "", iconImg: "" } },
+  posts: { loading: false, error: "", data: { childrens: [] } },
 };
 
-type MeActions =
+type Actions =
   | UpdateCommentAction
   | MeRequestAction
   | MeRequestSuccessAction
   | MeRequestErrorAction
-  | TTokenAction;
+  | TTokenAction
+  | TPostsRequestErrorAction
+  | TPostsRequestSuccessAction
+  | TPostsRequestAction;
 
-export const rootReducer: Reducer<RootState, MeActions> = (
+export const rootReducer: Reducer<RootState, Actions> = (
   state = initialState,
   action
 ) => {
@@ -55,7 +69,13 @@ export const rootReducer: Reducer<RootState, MeActions> = (
         ...state,
         me: meReduser(state.me, action),
       };
-
+    case POSTS_REQUEST:
+    case POSTS_REQUEST_SUCCESS:
+    case POSTS_REQUEST_ERROR:
+      return {
+        ...state,
+        posts: postsReduser(state.posts, action),
+      };
     default:
       return state;
   }

@@ -17,14 +17,18 @@
   "license": "ISC",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",
+    "@types/react-router-dom": "^5.3.3",
     "axios": "^1.2.4",
     "classnames": "^2.3.2",
     "express": "^4.17.1",
     "nodemon": "^2.0.12",
     "react": "^17.0.2",
     "react-dom": "^17.0.1",
+    "react-hook-form": "^7.43.2",
     "react-redux": "^8.0.5",
+    "react-router-dom": "^6.8.2",
     "redux": "^4.2.1",
+    "storeon": "^3.1.5",
     "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {

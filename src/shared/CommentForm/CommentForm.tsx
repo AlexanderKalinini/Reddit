@@ -1,38 +1,64 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styles from "./commentform.css";
-import { useContext } from "react";
-import { userContext } from "../context/userContext";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux-store";
+import { updateComment } from "../../store/updateComment/actions";
+import { useForm } from "react-hook-form";
+
+import { storeonStore } from "../../../Storeon/Store";
+import { useStoreon } from "../../App";
+
+type FormValues = {
+  textAriaComment: string;
+};
 
 export function CommentForm() {
-  const value1 = useSelector<RootState, string>((state) => state.commentText);
-  const dispatch = useDispatch();
-  const userData = useContext(userContext);
+  const value = useSelector<RootState, string>((state) => state.commentText);
+  // const dispatch = useDispatch();
+  const userName = useSelector<RootState, string | undefined>(
+    (state) => state.me.data.name
+  );
+  const [touched, setTouch] = useState(false);
+  const { dispatch } = useStoreon();
+  // const [valueError, setValueError] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, touchedFields },
+  } = useForm<FormValues>();
+  // const onSubmit: SubmitHandler<TextAria> = (data: string) => {
+  //   alert(data);
+  // };
 
   function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
-    dispatch(updateComment(event.target.value));
+    dispatch("setComment", event.target.value);
   }
 
-  function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-    console.log(value1);
+  function onSubmit() {
+    event?.preventDefault();
+    if (errors.textAriaComment) return;
+    alert(storeonStore.get().comment);
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <textarea
-        placeholder={`${userData.name}, оставьте ваш комментарий`}
+        {...register("textAriaComment", {
+          value: value,
+          minLength: 4,
+          required: true,
+          onChange: handleChange,
+        })}
+        placeholder={`${userName}, оставьте ваш комментарий`}
         className={styles.input}
-        value={value1}
-        onChange={handleChange}
+        aria-invalid={errors.textAriaComment ? "true" : undefined}
       />
+      {touchedFields.textAriaComment && errors.textAriaComment && (
+        <div>Enter more than 3 character</div>
+      )}
       <button type="submit" className={styles.button}>
         Comment
       </button>
     </form>
   );
-}
-function updateComment(value: string): any {
-  throw new Error("Function not implemented.");
 }

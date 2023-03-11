@@ -4,10 +4,14 @@ import styles from "./post.css";
 import { useEffect } from "react";
 import { CommentForm } from "../CommentForm";
 import { PostComment } from "./PostComment";
-import { indexContext } from "../context/indexContext";
+import { postsPopularContext } from "../context/postsPopularContext";
 import { userPostContext } from "../context/userPostContext";
 import { useCommentData } from "../../hooks/useCommentData";
 import { generateRandomeString } from "../../../utils/react/generateRandomeString";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ICardList } from "../CardList";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux-store";
 
 interface IClose {
   onClose?: () => void;
@@ -21,13 +25,19 @@ interface IPost {
     replies?: { data: { children: [] } };
   };
 }
-export function Post(props: IClose) {
+export function Post() {
   const ref = useRef<HTMLDivElement>(null);
   const node = document.querySelector("#modal_root");
   if (!node) return null;
-  const index = useContext(indexContext);
-  const dataPost = useContext(userPostContext);
-  const [comments] = useCommentData(dataPost[index].postId);
+
+  const {
+    state: { id, title },
+  } = useLocation();
+
+  console.log("PostID:::", id);
+  if (!id) return null;
+  const [comments] = useCommentData(id);
+  const navigate = useNavigate();
 
   function getComments(postComments: IPost[]) {
     return postComments.map((element) => {
@@ -56,8 +66,7 @@ export function Post(props: IClose) {
         event.target instanceof Node &&
         !ref.current?.contains(event.target)
       ) {
-        console.log("closed");
-        props.onClose?.();
+        navigate("/");
       }
     }
 
@@ -67,12 +76,12 @@ export function Post(props: IClose) {
 
   return ReactDOM.createPortal(
     <div className={styles.modal} ref={ref}>
-      <h2>{dataPost[index].title}</h2>
+      <h2>{title}</h2>
       <div className={styles.content}>
         <p>
           <iframe
             seamless
-            src={dataPost[index].article}
+            src=""
             className={styles.iframe}
             allow="fullscreen"
           ></iframe>

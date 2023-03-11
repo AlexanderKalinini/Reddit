@@ -9,13 +9,14 @@ export const meRequest: ActionCreator<MeRequestAction> = () => ({
   type: ME_REQUEST,
 });
 
-//------------------------------------------------------------------
+// Success------------------------------------------------------------------
 
 export interface IUserData {
   name?: string;
   iconImg?: string;
 }
 export const ME_REQUEST_SUCCESS = "ME_REQUEST_SUCCESS";
+
 export type MeRequestSuccessAction = {
   type: typeof ME_REQUEST_SUCCESS;
   data: IUserData;

@@ -3,3 +3,27 @@
     padding: 40px 0;
   }
 }
+
+.button {
+  width: 100%;
+  height: 40px;
+
+  border: 1px solid black;
+  font-size: 25px;
+  border-radius: 15px;
+}
+
+.button:hover {
+  background-color: var(--green);
+}
+
+.button:focus {
+  background-color: var(--orange);
+}
+
+.downloading {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 20px;
+  color: brown;
+}

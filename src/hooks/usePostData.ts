@@ -28,7 +28,7 @@ export function usePostData() {
       })
       .then((resp) => {
         const postData = resp.data.data.children;
-        console.log("postData:", postData);
+
         const userMapedData: IPostData[] = postData.map(
           (el: {
             data: {
@@ -56,8 +56,6 @@ export function usePostData() {
             };
           }
         ); // title,thumbnail
-
-        console.log("userMapedData:", userMapedData);
 
         setData(userMapedData);
       })

@@ -8,3 +8,4 @@ export function useToken() {
     dispatch(actionToken(window.__token__));
   });
 }
+

@@ -3,22 +3,18 @@ import ReactDOM from "react-dom/server";
 import { indexTemplate } from "./indexTemplate";
 import { App } from "../App";
 import axios from "axios";
-import cors from 'cors';
+import cors from "cors";
 
 const app = express();
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: "http://localhost:3000",
   credentials: true,
-  optionSuccessStatus: 200
-}
+  optionSuccessStatus: 200,
+};
 
-app.use(cors(corsOptions))
+app.use(cors(corsOptions));
 app.use("/static", express.static("./dist/client"));
-app.get("/", (req, res) => {
-  res.send(indexTemplate(ReactDOM.renderToString(App())));
-});
-
 
 app.get("/auth", (req, res) => {
   axios
@@ -33,12 +29,16 @@ app.get("/auth", (req, res) => {
         headers: { "Content-type": "application/x-www-form-urlencoded" },
       }
     )
-    .then(({data}) => {
-      res.send(indexTemplate(ReactDOM.renderToString(App()),data['access_token']));
+    .then(({ data }) => {
+      res.send(
+        indexTemplate(ReactDOM.renderToString(App()), data["access_token"])
+      );
     })
     .then(console.log);
 });
-
+app.get("*", (req, res) => {
+  res.send(indexTemplate(ReactDOM.renderToString(App())));
+});
 app.listen(3000, () => {
   console.log("server started on port http://localhost:3000");
 });
